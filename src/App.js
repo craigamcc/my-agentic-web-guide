@@ -708,9 +708,9 @@ const DemoPage = () => {
                                                     <h4 className="text-xs font-bold text-slate-500 mb-1">Sources:</h4>
                                                     <div className="space-y-1">
                                                         {msg.sources.map(source => (
-                                                            <a href="#" onClick={(e) => e.preventDefault()} key={source} className="flex items-center text-xs text-indigo-600 hover:underline">
+                                                            <button key={source} className="flex items-center text-xs text-indigo-600 hover:underline">
                                                                 <Link size={12} className="mr-1.5"/> {source}
-                                                            </a>
+                                                            </button>
                                                         ))}
                                                     </div>
                                                 </div>
