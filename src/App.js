@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { BookOpen, Cpu, Share2, Puzzle, Lightbulb, CheckCircle, XCircle, Code, Copy, ArrowRight, Home, Menu, X, TrendingUp, Search, Mic, Clapperboard, MessageSquare, Send, ShieldAlert, DollarSign, Target, Link, Bot, RefreshCw, Server, Database, BrainCircuit, Cloud, HardDrive, CheckSquare, User, DatabaseZap, PlusCircle, Sparkles, Globe, PenSquare } from 'lucide-react';
+import { BookOpen, Cpu, Share2, Puzzle, Lightbulb, CheckCircle, XCircle, Code, Copy, ArrowRight, Home, Menu, X, TrendingUp, Search, Mic, Clapperboard, MessageSquare, Send, ShieldAlert, DollarSign, Target, Link, Bot, RefreshCw, Server, Database, BrainCircuit, Cloud, HardDrive, CheckSquare, User, DatabaseZap, PlusCircle, Sparkles, Globe, PenSquare, LayoutList, Wrench } from 'lucide-react';
 
 // --- Reusable Components ---
 
@@ -141,10 +141,10 @@ const WhyPage = () => (
 const ArchitecturePage = () => {
     const [activeStep, setActiveStep] = useState(0);
     const steps = [
-        { icon: <User size={32} />, title: '1. Query', description: "A user asks a question in natural language. The NLWeb Core Engine ingests and pre-processes this query, understanding conversational context and preparing it for the next step." },
-        { icon: <DatabaseZap size={32} />, title: '2. Retrieve', description: "The query is converted to a vector. The Vector DB Client performs a semantic search on your database to find the most relevant content chunks from your site." },
-        { icon: <PlusCircle size={32} />, title: '3. Augment', description: "The original user query and the retrieved content are combined into a detailed, context-rich prompt. This prompt is then sent to the LLM." },
-        { icon: <Sparkles size={32} />, title: '4. Generate', description: "The LLM Provider generates a natural language answer that is grounded in your site's specific data, citing the sources it used to ensure accuracy and reduce hallucinations." }
+        { icon: <User size={32} />, title: '1. Decontextualize', description: "The system analyzes the user's query in the context of the conversation history. For example, if the user asks 'who was the keynote speaker?', it understands this refers to the previously discussed 'Innovate Summit'." },
+        { icon: <Wrench size={32} />, title: '2. Tool Selection', description: "Based on the decontextualized query, the system selects the most appropriate tool. A query like 'summarize this' would select the RAG tool, while 'who is...' would select the Item Details tool." },
+        { icon: <DatabaseZap size={32} />, title: '3. Retrieve', description: "The selected tool executes its logic, which typically involves converting the query to a vector and performing a semantic search on the vector database to find the most relevant content from your site." },
+        { icon: <Sparkles size={32} />, title: '4. Generate', description: "The retrieved content is combined with the original query into a detailed, context-rich prompt. This is sent to an LLM to generate a final, human-readable answer, complete with source citations." }
     ];
     const coreComponents = [
         {title: 'Core Engine', text: 'Orchestrates the entire query lifecycle.'}, {title: 'LLM Provider', text: 'Pluggable interface to connect to your chosen LLM.'}, {title: 'Vector DB Client', text: 'Connects to a vector database for semantic search.'}, {title: 'Embedding Provider', text: 'Converts text into numerical vectors.'}, {title: 'Data Ingestion Tools', text: 'Scripts to process your source data (e.g., RSS).'}, {title: 'REST/JSON Protocol', text: 'Defines the `/api/ask` endpoint for communication.'}
@@ -284,11 +284,11 @@ const MCPPage = () => (
 const BigPicturePage = () => (
     <PageWrapper>
         <h2 className="text-3xl font-bold text-center mb-8 text-slate-800">The Big Picture: A New Web</h2>
-        <p className="text-center text-slate-600 max-w-3xl mx-auto mb-12">NLWeb is more than a tool; it's part of a larger vision for the future of the internet. Here are the key strategic concepts from Microsoft CTO Kevin Scott's perspective.</p>
+        <p className="text-center text-slate-600 max-w-3xl mx-auto mb-12">While the agentic web is a widely discussed future, there are competing visions for how it will be built. It's important to understand these different philosophies.</p>
         <div className="space-y-8">
             <Card icon={<Globe size={24} />} title="The Rise of the 'Agentic Web'">
                 <p>The next evolution of the web will be defined by AI "agents" that perform complex tasks for users. Instead of just browsing pages, users will direct their agents to research topics, compare products, and transact business.</p>
-                <p className="mt-2">NLWeb and MCP provide the essential plumbing for your website to become a valuable resource for these agents.</p>
+                <p className="mt-2">Frameworks like NLWeb and open protocols like MCP provide the essential plumbing for your website to become a valuable resource for these agents.</p>
             </Card>
             <Card icon={<CheckSquare size={24} />} title="Creator Agency and New Business Models">
                 <p>A key goal of this new ecosystem is to give "agency" back to content creators. Open protocols allow you to control what content is accessible to AI agents and how it's monetized. One powerful model involves the user's agent leveraging their existing subscriptions.</p>
@@ -307,12 +307,44 @@ const BigPicturePage = () => (
     </PageWrapper>
 );
 
+const KeyFeaturesPage = () => (
+    <PageWrapper>
+        <h2 className="text-3xl font-bold text-center mb-8 text-slate-800">Key Features & Operational Modes</h2>
+        <p className="text-center text-slate-600 max-w-2xl mx-auto mb-10">NLWeb is a flexible framework, not a one-size-fits-all product. It allows a publisher to choose how to mediate the relationship between their content and their audience by offering three distinct operational modes out of the box.</p>
+        <div className="grid md:grid-cols-3 gap-8">
+            <Card icon={<LayoutList size={24}/>} title="The Librarian: Enhanced Retrieval">
+                <p>This mode provides a sophisticated version of traditional search. It returns a ranked list of articles, but enhances each result with a relevance score and an AI-generated explanation for why it's a good match.</p>
+                <p className="font-semibold text-indigo-700 mt-2">Best for:</p>
+                <p className="text-sm">Users who want to browse the best source material for their research.</p>
+            </Card>
+            <Card icon={<MessageSquare size={24}/>} title="The Expert: Direct Answer (RAG)">
+                <p>For users who prefer a direct answer to a question, this mode synthesizes information from multiple articles to provide a single, conversational response, complete with source citations.</p>
+                <p className="font-semibold text-indigo-700 mt-2">Best for:</p>
+                <p className="text-sm">Quickly answering specific questions and enabling multi-turn conversational follow-ups.</p>
+            </Card>
+            <Card icon={<PenSquare size={24}/>} title="The Curator: Hybrid Summary">
+                <p>This mode offers the best of both worlds. It presents an AI-generated summary of the key takeaways at the top, followed by a ranked list of the most relevant source articles for deeper exploration.</p>
+                <p className="font-semibold text-indigo-700 mt-2">Best for:</p>
+                <p className="text-sm">Giving users a quick cognitive offload (the "gist") while still providing easy access to the underlying sources.</p>
+            </Card>
+        </div>
+         <div className="grid md:grid-cols-2 gap-8 mt-8">
+            <Card icon={<Wrench size={24}/>} title="Tool-Based Architecture">
+                <p>NLWeb uses different "tools" for different tasks. It can intelligently select a `Search Tool` for broad queries, an `Item Details Tool` for specific questions about one piece of content, or an `Ensemble Queries Tool` to combine different types of results.</p>
+            </Card>
+            <Card icon={<RefreshCw size={24}/>} title="Performance Optimized">
+                <p>To keep costs low and responses fast, NLWeb uses a "fast track" path for simple queries and relies on small, efficient models like GPT-4o-mini for many of its internal processing steps, ensuring an affordable and high-quality experience at scale.</p>
+            </Card>
+        </div>
+    </PageWrapper>
+);
+
 const UseCasesPage = () => (
     <PageWrapper>
         <h2 className="text-3xl font-bold text-center mb-8 text-slate-800">Use Cases & The Monetization Horizon</h2>
         <p className="text-center text-slate-600 max-w-2xl mx-auto mb-10">Preparing for the agentic web means anticipating how users and their AI agents will want to interact with your content. This is not just a defensive move; it's a platform for innovation.</p>
         <div className="space-y-8">
-            <Card icon={<Search size={24}/>} title="Use Case: Summarization & Explanation">
+            <Card icon={<Search size={24}/>} title="Audience Use Case: Summarization & Explanation">
                 <p>Users will task their agents to provide quick, concise summaries of complex topics, often without clicking through to the original article.</p>
                 <p className="font-semibold text-indigo-700 mt-2">Example Queries:</p>
                 <ul className="text-sm italic list-disc list-inside">
@@ -324,7 +356,7 @@ const UseCasesPage = () => (
                     <p className="text-sm text-indigo-700">Structure content with clear headings, summaries, and Schema.org markup to help agents accurately synthesize information while retaining attribution.</p>
                 </div>
             </Card>
-            <Card icon={<MessageSquare size={24}/>} title="Use Case: Deep Conversational Q&A">
+            <Card icon={<MessageSquare size={24}/>} title="Audience Use Case: Deep Conversational Q&A">
                 <p>Users will engage in multi-turn dialogues to explore topics in depth, asking follow-up questions to build a comprehensive understanding.</p>
                 <p className="font-semibold text-indigo-700 mt-2">Example Queries:</p>
                 <ul className="text-sm italic list-disc list-inside">
@@ -336,7 +368,7 @@ const UseCasesPage = () => (
                     <p className="text-sm text-indigo-700">Develop proprietary conversational tools trained on your own archives. This makes your entire content library an interactive knowledge base.</p>
                 </div>
             </Card>
-            <Card icon={<User size={24}/>} title="Use Case: Personalized Briefings">
+            <Card icon={<User size={24}/>} title="Audience Use Case: Personalized Briefings">
                 <p>Agents will be tasked with creating highly personalized news feeds and briefings tailored to a user's specific interests, location, and even reading level.</p>
                 <p className="font-semibold text-indigo-700 mt-2">Example Queries:</p>
                 <ul className="text-sm italic list-disc list-inside">
@@ -348,16 +380,11 @@ const UseCasesPage = () => (
                     <p className="text-sm text-indigo-700">Ensure your content is adaptable by providing rich metadata and considering different formats (text, audio, video) that an agent can re-mix.</p>
                 </div>
             </Card>
-             <Card icon={<PenSquare size={24}/>} title="Use Case: Content Generation & Remixing">
-                <p>Users will instruct agents to create new content formats derived from your original reporting, such as tables, outlines, or reports.</p>
-                <p className="font-semibold text-indigo-700 mt-2">Example Queries:</p>
-                <ul className="text-sm italic list-disc list-inside">
-                    <li>"Produce a table of monthly figures from your article on personal consumption expenditures."</li>
-                    <li>"Create a report on the latest trends in de-extinction based on your coverage."</li>
-                </ul>
+             <Card icon={<Lock size={24}/>} title="Internal Use Case: Newsroom Asset">
+                <p>NLWeb can be used to create a secure, searchable archive of a newsroom's own reporting or sensitive documents from an investigation (e.g., police reports, lobbying disclosures). This allows journalists to find historical context and connections quickly.</p>
                  <div className="mt-4 p-3 bg-indigo-50 rounded-lg border border-indigo-200">
-                    <h4 className="font-bold text-indigo-800 text-sm">How Publishers Can Prepare:</h4>
-                    <p className="text-sm text-indigo-700">Provide well-structured data and clear licensing terms that define how your content can be programmatically used and remixed.</p>
+                    <h4 className="font-bold text-indigo-800 text-sm">Key Advantages:</h4>
+                    <p className="text-sm text-indigo-700">**Privacy:** Can be connected to a locally-run LLM to ensure sensitive documents are never sent to an external provider. **Verifiability:** Every result is tied back to a source document, reducing the risk of AI "hallucinations."</p>
                 </div>
             </Card>
         </div>
@@ -369,13 +396,14 @@ const StrategyPage = () => (
         <h2 className="text-3xl font-bold text-center mb-8 text-slate-800">Strategy & Risks</h2>
         <p className="text-center text-slate-600 max-w-2xl mx-auto mb-10">A successful deployment is a strategic commitment, not just a technical one. Consider these critical factors.</p>
         <div className="grid lg:grid-cols-2 gap-8">
+             <Card icon={<Share2 size={24} />} title="Competing Visions: Protocol vs. Browser Agents">
+                <p>The agentic web is not a settled future. There are competing philosophies on how it will be built. The MCP/NLWeb approach relies on websites adopting an open protocol.</p>
+                <p className="italic border-l-4 border-slate-200 pl-4 mt-2">"If you commit entirely to the MCP vision, you require these third-party MCP servers to work reliably... On the other hand, if you just... design it as the way a human would use that website, you have full control." - Aravind Srinivas, CEO of Perplexity</p>
+                <p className="mt-2">This highlights a key strategic choice: invest in open protocols or wait for browser-based agents that can navigate existing websites without special integration.</p>
+            </Card>
             <Card icon={<DollarSign size={24} />} title="Cost & Performance">
                 <p>API calls for embedding and querying incur costs that scale with your content volume and user traffic. These must be carefully modeled.</p>
                 <p>The RAG process introduces latency. For a good user experience, consider caching strategies or using smaller, faster models for certain queries.</p>
-            </Card>
-            <Card icon={<Target size={24} />} title="The 'Invisible Interface' Problem">
-                <p>A chat box is a blank slate. Users often don't know what to ask. Your UI must provide affordances to guide them.</p>
-                <p>Use placeholder text with examples, and provide suggested prompt buttons to showcase the system's capabilities and encourage interaction.</p>
             </Card>
             <Card icon={<ShieldAlert size={24} />} title="Protocol & Security Risks">
                 <p>The success of the agentic web depends on broad adoption of protocols like MCP. Early adopters face the risk that standards may evolve.</p>
@@ -804,6 +832,7 @@ export default function App() {
         { id: 'BigPicture', label: 'The Big Picture', icon: <Globe size={20} /> },
         { id: 'Architecture', label: 'Architecture', icon: <Cpu size={20} /> },
         { id: 'MCP', label: 'MCP Protocol', icon: <Share2 size={20} /> },
+        { id: 'KeyFeatures', label: 'Key Features', icon: <LayoutList size={20} /> },
         { id: 'UseCases', label: 'Use Cases', icon: <TrendingUp size={20} /> },
         { id: 'Strategy', label: 'Strategy & Risks', icon: <ShieldAlert size={20} /> },
         { id: 'Infrastructure', label: 'Infrastructure', icon: <Server size={20} /> },
@@ -818,6 +847,7 @@ export default function App() {
             case 'BigPicture': return <BigPicturePage />;
             case 'Architecture': return <ArchitecturePage />;
             case 'MCP': return <MCPPage />;
+            case 'KeyFeatures': return <KeyFeaturesPage />;
             case 'UseCases': return <UseCasesPage />;
             case 'Strategy': return <StrategyPage />;
             case 'Infrastructure': return <InfrastructurePage />;
